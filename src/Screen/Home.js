@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image,StyleSheet } from 'react-native';
+import { View, Text, Image,StyleSheet,ScrollView } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import axios from 'axios';
@@ -29,7 +29,7 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    axios.get('http://api.openweathermap.org/data/2.5/weather?q=Mumbai&APPID=8aca4d37b2d42f91ab9265f20e14a9e8')
+    axios.get('http://api.openweathermap.org/data/2.5/weather?q=Gujrat&APPID=8aca4d37b2d42f91ab9265f20e14a9e8')
       .then(response => {
         console.log('DATA', response.data.coord)
         this.setState({
@@ -59,7 +59,7 @@ class Home extends Component {
         <CardRow>
           <View style={{ flex: 2, alignItems: 'center', }}>
             <Image
-              style={{ width: 100, height: 100 }}
+              style={{ width: 70, height: 70 }}
               source={{ uri: `http://openweathermap.org/img/w/${wicon}.png` }}
             ></Image>
             <Text style={{ fontSize: 20,}}>{this.state.weather.description}</Text>
@@ -73,6 +73,22 @@ class Home extends Component {
             </CardRow>
           </View>
         </CardRow>
+
+        <ScrollView
+            horizontal={true}
+            showsHorizontalScrollIndicator={true}
+            pagingEnabled={true}
+            scrollEnabled={true}
+            showsHorizontalScrollIndicator={false}
+            decelerationRate={0}
+            scrollEventThrottle={16}
+            snapToAlignment="center"
+            onMomentumScrollEnd = {this.setSelectedIndex}
+            ref = {this.scrollRef}
+            style={{
+              height: 10,
+            }}
+          >
         <CardRow>
         <Card>
           <Text style={text}>Pressure</Text>
@@ -84,13 +100,14 @@ class Home extends Component {
         </Card>
         <Card>
           <Text style={text}>Winds</Text>
-          <Text>{this.state.wind.speed}</Text>
+          {/* <Text>{this.state.wind}</Text> */}
         </Card>
         <Card>
           <Text style={text}>Clouds</Text>
-          <Text>{this.state.cloud.all}</Text>
+          {/* <Text>{this.state.cloud}</Text> */}
         </Card>
         </CardRow>
+        </ScrollView>
         <View style={{ flex: 6 }}>
           <Card>
             <TouchableOpacity onPress={() => navigate('two')}>
