@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* WeatherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* WeatherTests.m */; };
 		0499B75B4451367821B24314 /* libPods-Weather-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 07C921A9E973BCA449C9883A /* libPods-Weather-tvOSTests.a */; };
