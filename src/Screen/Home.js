@@ -4,20 +4,21 @@ import Geolocation from 'react-native-geolocation-service';
 import {  } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Entypo';
 import IconAnt from 'react-native-vector-icons/AntDesign';
-import { Card, CardRow, Spinner } from '../Component/common';
+import { Card, CardRow, Spinner, Header } from '../Component/common';
 import SevenDay from './SevenDay';
 import style from '../Style/Style';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
 import { get_data, get_city} from '../Redux/actions';
+import { SafeAreaView } from 'react-navigation';
+import Climate from '../Component/Climate';
 
 class Home extends Component {
-
 
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Weather',
-      headerTintColor: '#fff',
+       headerTintColor: '#fff',
       headerTitleStyle: {
         fontWeight: 'bold',
       },
@@ -27,14 +28,14 @@ class Home extends Component {
       headerLeft:
         (<IconAnt
           style={{ paddingLeft: 16, color: '#ffffff' }}
-          onPress={() => navigation.navigate('two')}
+          onPress={() => navigation.navigate('AddCity')}
           name="plus"
           size={25}
         />),
       headerRight:
         (<IconAnt
           style={{ paddingRight: 16, color: '#ffffff' }}
-          onPress={() => navigation.navigate('two')}
+          onPress={() => navigation.navigate('setting')}
           name="setting"
           size={30}
         />),
@@ -99,7 +100,9 @@ class Home extends Component {
 
 
     return (
-      <View style={{ flex: 1, margin: 20, }}>
+      <SafeAreaView style={{ flex: 1, }}>
+      <View style={{ flex: 1, }}>
+        {/* <View style={{margin:5}}>
         <CardRow>
           <TouchableOpacity onPress={() => navigate('notification')}>
             <CardRow>
@@ -119,7 +122,7 @@ class Home extends Component {
             <View style={{flexDirection:'row-reverse'}}>
             <CardRow>
               <IconAnt
-                style={{ paddingRight: 5, color: 'blue' }}
+                style={{ paddingRight: 10, color: 'blue' }}
                 onPress={() => navigation.navigate('notification')}
                 name="exclamationcircle"
                 size={20}
@@ -131,14 +134,12 @@ class Home extends Component {
             </View>
             </TouchableOpacity>
           </CardRow>
+          </View> */}
 
         <View style={{ alignItems: 'center', justifyContent: 'center',marginTop:20 }}>
           <Text style={{ fontSize: 30, fontWeight: 'bold' }}>{city.state_district}</Text>
           <Text style={{ fontSize: 20, }}>{city.state}</Text>
-          <Image
-            style={{ width: 70, height: 70, paddingTop: 20 }}
-            source={{ uri: `http://openweathermap.org/img/w/50d.png` }}
-          ></Image>
+          <Climate size={70}>{currently.icon}</Climate>
           <Text style={{ fontSize: 20, }}>{currently.summary}</Text>
         </View>
 
@@ -213,7 +214,7 @@ class Home extends Component {
                 <SevenDay days={item}/>
               </View>
               }
-              keyExtractor={item => item.ozone}
+              keyExtractor={item => item.time}
               />
               </ScrollView>
               {/* <View style={{ flexDirection: 'row', width: 200, justifyContent: 'space-around' }}>
@@ -224,6 +225,7 @@ class Home extends Component {
         </View>
 
       </View>
+      </SafeAreaView>
     );
   }
 }

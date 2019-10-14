@@ -19,7 +19,7 @@ const style = StyleSheet.create({
     height:2,
     width:'100%',
     backgroundColor:'gray',
-    margin:5
+    //margin:5
   }
 
 })
