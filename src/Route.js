@@ -6,23 +6,69 @@ import Home from './Screen/Home';
 import Setting from './Screen/Setting';
 import Notify from './Screen/Notify';
 import AddCity from './Screen/AddCity';
-import SevenDay from './Screen/SevendayDetail'
+import SevenDay from './Screen/SevendayDetail';
+import Flash from './Screen/FlashScreen';
+import CityOption from './Screen/CityOption';
 
 const AppStack = createStackNavigator({
-    one:{
-        screen:Home
-    },
-    setting:{
-        screen:Setting
-    },
-    notification:{
-        screen: Notify
+    // start:{
+    //     screen:Flash,
+    //     navigationOptions:{
+    //         header:null,
+    //         headerBackTitle:null
+    //    }
+    // },
+    // one:{
+    //     screen:Home,
+    //     navigationOptions:{
+    //        headerBackTitle:null
+    //    }
+    // },
+    // setting:{
+    //     screen:Setting,
+    //     navigationOptions:{
+    //         headerBackTitle:null
+    //     }
+    // },
+    // notification:{
+    //     screen: Notify,
+    //     navigationOptions:{
+    //         headerBackTitle:null
+    //     }
+    // },
+    CityOption:{
+        screen: CityOption,
+        navigationOptions:{
+            title:'Manage Cities',
+            headerBackTitle:null,
+            headerTitleStyle:{
+                fontSize:20,
+                color:'white'
+            },
+            headerStyle: {
+                backgroundColor: 'black',
+              },
+        },
     },
     AddCity:{
-        screen: AddCity
+        screen: AddCity,
+        navigationOptions:{
+            title:'Seach City',
+            headerBackTitle:null,
+            headerTitleStyle:{
+                fontSize:20,
+                color:'white'
+            },
+            headerStyle: {
+                backgroundColor: 'black',
+              },
+        },
     },
     SevenDay:{
-        screen: SevenDay
+        screen: SevenDay,
+        navigationOptions:{
+            headerBackTitle:null
+        }
     }
 
 })

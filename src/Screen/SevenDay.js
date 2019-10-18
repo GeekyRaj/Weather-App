@@ -15,7 +15,7 @@ class SevenDay extends Component {
   }
 
   render() {
-    console.log('SEVEN DAY ',this.props.days)
+    //console.log('SEVEN DAY ',this.props.days)
     const day =this.props.days;
     const tlow= day.temperatureLow;
     const thigh = day.temperatureHigh;
@@ -27,11 +27,6 @@ class SevenDay extends Component {
             <Time>{day.time}</Time>
           </View>
           <View style={[style.center,{flex:1}]}>
-            {/* <Image
-              style={{ width: 50, height: 50, paddingTop: 20 }}
-              source={{ uri: `http://openweathermap.org/img/w/50d.png` }}
-            >
-            </Image> */}
             <Climate size={30}>{day.icon}</Climate>
           </View>
           <View style={[style.center, { paddingLeft: 30,flex:4 }]}>
