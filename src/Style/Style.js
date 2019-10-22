@@ -33,7 +33,9 @@ const style = StyleSheet.create({
   },
   //CityOption
   whiteHeader:{
-    color:'white'
+    color:'white',
+    fontWeight:'bold',
+    fontSize:20
   }
 
 })

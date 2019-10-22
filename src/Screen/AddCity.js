@@ -11,16 +11,25 @@ class AddCity extends Component {
     super(props);
     this.state = {
       place: '',
-      msg: ''
+      msg: '',
     };
   }
 
   changeText(text) {
-    this.setState({ place: text })
+    this.setState({ place: text });
+  }
+  onSubmitEditing(){
+    // if (this.state.place === "") {
+    //   this.setState({ msg: 'Enter Place' });
+    // }
+    // else {
+    //   this.props.searchResult(this.state.place);
+    // }
+    console.log(this.state.place)
   }
 
   searchPlace() {
-    if (this.state.inputText === "") {
+    if (this.state.place === "") {
       this.setState({ msg: 'Enter Place' });
     }
     else {
@@ -29,6 +38,7 @@ class AddCity extends Component {
   }
 
   render() {
+    console.log(this.state.place)
     console.log('REDUX', this.props.locn);
     return (
       <View style={{ flex: 1 }}>
@@ -49,6 +59,8 @@ class AddCity extends Component {
                 borderBottomColor: '#7d90a0',
               }}
               onChangeText={value => this.changeText(value)}
+              onSubmitEditing={this.onSubmitEditing}
+              onKeyPress={(keyPress) => console.log(keyPress)}
             />
             <IconAnt
               style={{ paddingTop: 10, color: '#ffffff' }}

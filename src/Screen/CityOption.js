@@ -1,13 +1,30 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList } from 'react-native';
-import { Card } from '../Component/common';
+import { Card, CardRow, Button } from '../Component/common';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import style from '../Style/Style';
 import BackgoundImage from '../Component/common/BackgoundImage';
 import { connect } from 'react-redux';
-import Icon from 'react-native-vector-icons/Entypo';
+import Icon from 'react-native-vector-icons/AntDesign';
+import Climate from '../Component/Climate';
+import { resetSearch, updateOption } from '../Redux/actions';
+import Temp from '../Component/Temp';
+import City from '../Component/City';
+import IconEn from 'react-native-vector-icons/Entypo';
+
 
 class CityOption extends Component {
+    static navigationOptions = ({ navigation }) => {
+        return {
+            headerLeft:
+                (<Icon
+                    style={{ paddingLeft: 16, color: '#ffffff' }}
+                    onPress={() => navigation.pop()}
+                    name="left"
+                    size={25}
+                />),
+        };
+    };
     constructor(props) {
         super(props);
         this.state = {
@@ -16,58 +33,96 @@ class CityOption extends Component {
 
 
     render() {
+        console.disableYellowBox = true;
         console.log('CITY OPTION ', this.props.locn);
-        const locn = this.props.locn;
+        const locn = Object.values(this.props.locn);
+        console.log('OBJECT TO ARRAY', locn);
         return (
             <View style={{ flex: 1 }}>
                 <BackgoundImage>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('one', { lat:this.props.geoLat, long: this.props.geoLong })}> 
+                    <Card width='90%' height='auto'>
+                        <View style={{ margin: 10, }}>
+                            <CardRow>
+                                <View style={{ flex:1}}>
+                                    <IconEn
+                                        style={{ color: 'white' }}
+                                        name="location"
+                                        size={25}
+                                    />
+                                </View>
+                                <View style={{ flex:3}}> 
+                                    <Text style={style.whiteHeader}>{this.props.geoPlace}</Text>
+                                </View>
+                            </CardRow>
+                        </View>
+                    </Card>
+                    </TouchableOpacity>
+
                     {locn != '' ?
                         <FlatList
                             data={locn}
-                            renderItem={({ item }) =>
-                                <Card width='90%' height={100}>
-                                    <View style={{ margin:10}}> 
-                                        <Text style={style.whiteHeader}>{item.place}</Text>
-                                        <Text style={style.whiteHeader}>{item.addr}</Text>
-                                    </View>
-                                </Card>
-                            }
+                            extraData={locn}
+                            renderItem={({ item, index }) => {
+                                //this.props.updateOption( index ,item.lat,item.long,item.place,item.addr,item.placedata);
+                                console.log('Test', item.place, item.addr)
+                                return (
+                                    <TouchableOpacity onPress={() => this.props.navigation.navigate('one', { data: item.placedata, name: item.place })}>
+                                        <City data={item}></City>
+                                    </TouchableOpacity>
+                                    // {/* <Text>{item.placedata.currently.humidity}</Text> */}
+                                    // <TouchableOpacity onPress={()=> {
+                                    //     this.props.navigation.navigate('one');
+                                    //     this.props.updateOption( index,item.lat,item.long,item.placedata);
+                                    // }}> 
+                                    //     <Text>{item.place}</Text>
+                                    // </TouchableOpacity>
+                                );
+                            }}
                             keyExtractor={item => item.place}
-                        /> : <View style={[style.center,{margin:20}]}><Text style={[style.whiteHeader,{fontSize: 20}]}>No City added</Text></View>}
-                    
-                    <View style={{ position:'absolute', bottom:0,paddingLeft:290, height:80, flex:1}}>
-                    <TouchableOpacity
-                        activeOpacity={0.7}
-                        style={{
-                            borderWidth: 1,
-                            borderColor: 'rgba(0,0,0,0.2)',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            width: 50,
-                            height: 50,
-                            backgroundColor: '#fff',
-                            borderRadius: 100,
-                        }}
-                        onPress={() => this.props.navigation.navigate('AddCity')}
-                    >
-                        <Icon
-                            style={{ color: '#000000' }}
-                            onPress={() => this.props.navigation.navigate('AddCity')}
-                            name="plus"
-                            size={45}
                         />
-                    </TouchableOpacity>
+                        // <React.Fragment>
+                        // <Text>ui</Text>
+                        // <Text>{locn[0].placedata.timezone}</Text>
+                        // </React.Fragment>
+                        : <View style={[style.center, { margin: 20 }]}><Text style={[style.whiteHeader, { fontSize: 20 }]}>No City added</Text></View>}
+
+                    <View style={{ position: 'absolute', bottom: 0, paddingLeft: 290, height: 80, flex: 1 }}>
+                        <TouchableOpacity
+                            activeOpacity={0.7}
+                            style={{
+                                borderWidth: 1,
+                                borderColor: 'rgba(0,0,0,0.2)',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                width: 50,
+                                height: 50,
+                                backgroundColor: '#fff',
+                                borderRadius: 100,
+                            }}
+                            onPress={() => this.props.navigation.navigate('AddCity')}
+                        >
+                            <Icon
+                                style={{ color: '#000000' }}
+                                onPress={() => this.props.navigation.navigate('AddCity')}
+                                name="plus"
+                                size={45}
+                            />
+                        </TouchableOpacity>
                     </View>
+                    <TouchableOpacity onPress={() => this.props.resetSearch()}>
+                        <Text>RESET</Text>
+                    </TouchableOpacity>
                 </BackgoundImage>
             </View>
         );
     }
 }
 function mapStateToProps(state) {
-    const { locn } = state.search
-    return { locn }
+    const { locn, geoPlace, geoLat, geoLOng } = state.search
+    return { locn, geoPlace, geoLat, geoLOng  }
 }
 
 
-export default connect(mapStateToProps, {})(CityOption)
+export default connect(mapStateToProps, { resetSearch, updateOption })(CityOption)
 

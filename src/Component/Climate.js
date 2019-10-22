@@ -41,7 +41,7 @@ class Climate extends Component {
         return (
             <View>
                 <Image
-                    style={{ width: size, height: size, paddingTop: 20 }}
+                    style={{ width: size, height: size, paddingTop: 20, }}
                     source={this.climateType(type)}
                 ></Image>
             </View>

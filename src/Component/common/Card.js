@@ -4,12 +4,13 @@ import {  View,StyleSheet } from 'react-native';
 const Card =(props) => {
     const {Container}=Styles;
     //const { width, height }= this.props;
-    console.log(props)
+    //console.log(props)
   return(
     <View style={[
       Container,
       {
-        width:props.width,height:props.height, 
+        width:props.width,
+        height:props.height, 
         justifyContent:props.center,
         alignItems:props.center, 
       }
@@ -28,7 +29,7 @@ const Styles=StyleSheet.create({
         shadowOffset:{width:5,height:2},
         shadowOpacity:0.5,
         shadowRadius:5,
-        
+        borderRadius:5,
         elevation:1,
         marginLeft: 15,
         marginRight:5,

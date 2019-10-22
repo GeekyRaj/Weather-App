@@ -7,20 +7,14 @@ export class Temp extends Component {
   }
   render() {
     var tem = this.props.children.toFixed(1);
-    console.log(tem)
+    //console.log(tem)
     return (
       <View>
-        <Text style={styles.text}>{tem} {"\u00B0"}</Text>
+        <Text style={{ fontSize:this.props.fontSize, color: this.props.color }}>{tem} {"\u00B0"}</Text>
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  text: {
-    //fontFamily: R.fonts.psRegular,
-    fontSize: 20
-  }
-});
 
 export default Temp;

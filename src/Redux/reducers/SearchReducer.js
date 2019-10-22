@@ -2,14 +2,23 @@ import {
     FETCH_SEARCH,
     GET_SEARCH,
     SEARCH_FAIL,
-    CHANGE_LOCATION
+    CHANGE_LOCATION,
+    RESET_SEARCH,
+    UPDATE_OPTION,
+    STORE_GEOLOCATION
  } from '../actions/type';
 
 const INITIAL_STATE = {
+    geoLat : null,
+    geotLong : null,
+    geoPlace:'',
+    selLat : null,
+    selLong : null,
     Places: [],
     IsLoading: null,
     err:'',
-    locn:[]
+    locn:[],
+    updateLoading:false
 };
 
 export default (state = INITIAL_STATE, action) =>{
@@ -22,7 +31,25 @@ export default (state = INITIAL_STATE, action) =>{
         case SEARCH_FAIL:
             return { ...state, IsLoading: false,err:'Invalid search'};
         case CHANGE_LOCATION:
-            return { ...state, locn: [...state.locn, action.payload] }
+            return { ...state, locn: [...state.locn, action.payload] };
+        case RESET_SEARCH:
+            return { ...INITIAL_STATE };
+        case UPDATE_OPTION:
+            return { 
+                ...state,
+                locn:{
+                    ...state.locn,
+                    [action.index]:{
+                      lat:action.payload.lat,
+                      long:action.payload.long,
+                      place:action.payload.d,
+                      addr:action.payload.d,
+                      placedata:action.payload.placedata
+                    }
+                }
+            };
+        case STORE_GEOLOCATION:
+            return { ...state, geoLat:action.payload.lat, geotLong:action.payload.long, geoPlace:action.payload.place }
         default:
             return state;
     }
