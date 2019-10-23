@@ -8,3 +8,4 @@ export const CHANGE_LOCATION = 'change_location';
 export const RESET_SEARCH = 'reset_search';
 export const UPDATE_OPTION ='update_option';
 export const STORE_GEOLOCATION = 'store_geolocation';
+export const CITY_STATUS = 'city_status';

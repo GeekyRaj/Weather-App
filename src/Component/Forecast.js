@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { get_data, get_city, storeGeolocation } from '../Redux/actions';
 import Climate from './Climate';
 import BackgoundImage from './common/BackgoundImage';
+import { withNavigation, SafeAreaView, } from "react-navigation";
 
 class Forecast extends Component {
   constructor(props) {
@@ -17,12 +18,25 @@ class Forecast extends Component {
 
   componentDidMount(){
     console.log('Forecast');
-    const lat =this.props.lat;
-    const long = this.props.long;
-    console.log(lat,long, this.props.place);
-    this.props.get_city({lat,long});
-    this.props.get_data({lat,long});
+    
+    // this.props.get_city({lat,long});
+    // this.props.get_data({lat,long});
+
+    const { navigation } = this.props;
+        this.focusListener = navigation.addListener("didFocus", () => {
+            console.log('FORECAST FOCUSSSSS');
+            const lat =this.props.lat;
+            const long = this.props.long;
+            console.log(lat,long, this.props.place);
+            this.props.get_city({lat,long});
+            this.props.get_data({lat,long});
+
+        });
   }
+  componentWillUnmount() {
+    this.focusListener.remove();
+}
+
   render() {
     console.disableYellowBox = true;
     const { text, textdata, } = Styles;
@@ -119,12 +133,12 @@ class Forecast extends Component {
             <ScrollView>
           <FlatList
                 data={dailyData}
-                renderItem={({ item }) => 
+                renderItem={({ item, index }) => 
                 <View>
                   <SevenDay days={item}/>
                 </View>
                 }
-                keyExtractor={item => item.icon}
+                keyExtractor={(item,index) => item.icon+index}
                 />
                 </ScrollView>
           </View>
@@ -141,7 +155,7 @@ function mapStateToProps(state) {
   }
   
   
-  export default connect(mapStateToProps, { get_data, get_city, storeGeolocation })(Forecast)
+  export default withNavigation(connect(mapStateToProps, { get_data, get_city, storeGeolocation })(Forecast))
   const Styles = StyleSheet.create({
     text: {
       fontSize: 15,

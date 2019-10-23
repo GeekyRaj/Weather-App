@@ -5,7 +5,8 @@ import {
     CHANGE_LOCATION,
     RESET_SEARCH,
     UPDATE_OPTION,
-    STORE_GEOLOCATION
+    STORE_GEOLOCATION,
+    CITY_STATUS
 } from './type';
 import axios from 'axios';
 
@@ -75,4 +76,11 @@ export const storeGeolocation = (lat , long) =>dispatch =>{
       })
       .catch(error => console.log('ERROR',error))
     
+}
+
+export const city_status = (status,lat,long) =>dispatch =>{
+    console.log('CITY STATUS',status,lat,long)
+    dispatch({
+        type:CITY_STATUS, payload: {status,lat,long}
+    })
 }

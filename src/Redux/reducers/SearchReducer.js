@@ -5,13 +5,15 @@ import {
     CHANGE_LOCATION,
     RESET_SEARCH,
     UPDATE_OPTION,
-    STORE_GEOLOCATION
+    STORE_GEOLOCATION,
+    CITY_STATUS
  } from '../actions/type';
 
 const INITIAL_STATE = {
     geoLat : null,
     geotLong : null,
     geoPlace:'',
+    isgeoSel: true,
     selLat : null,
     selLong : null,
     Places: [],
@@ -49,7 +51,9 @@ export default (state = INITIAL_STATE, action) =>{
                 }
             };
         case STORE_GEOLOCATION:
-            return { ...state, geoLat:action.payload.lat, geotLong:action.payload.long, geoPlace:action.payload.place }
+            return { ...state, geoLat:action.payload.lat, geotLong:action.payload.long, geoPlace:action.payload.place };
+        case CITY_STATUS:
+            return { ...state, isgeoSel: action.payload.status, selLat: action.payload.lat, selLong: action.payload.long }
         default:
             return state;
     }

@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
-import { View, } from 'react-native';
+import { View,Text } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import IconAnt from 'react-native-vector-icons/AntDesign';
 import { connect } from 'react-redux';
 import { get_data, get_city, storeGeolocation } from '../Redux/actions';
 import Forecast from '../Component/Forecast';
+import { withNavigation, SafeAreaView, } from "react-navigation";
 
 class Home extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Weather',
-       headerTintColor: '#fff',
+      headerTintColor: '#fff',
       headerTitleStyle: {
         fontWeight: 'bold',
       },
@@ -50,16 +51,31 @@ class Home extends Component {
       maximumAge: 60 * 60 * 24
     };
     Geolocation.getCurrentPosition(this.geoSuccess, this.geoFailure, geoOptions);
+
+    const { navigation } = this.props;
+        this.focusListener = navigation.addListener("didFocus", () => {
+            console.log('FOCUSSSSS');
+            let geoOptions = {
+              enableHighAccuracy: true,
+              timeOut: 20000,
+              maximumAge: 60 * 60 * 24
+            };
+            Geolocation.getCurrentPosition(this.geoSuccess, this.geoFailure, geoOptions);
+        });
   }
+
+  componentWillUnmount() {
+    this.focusListener.remove();
+}
 
   geoSuccess = (position) => {
     this.setState({
       ready: true,
       where: { lat: position.coords.latitude, lng: position.coords.longitude }
     })
-    const lat=this.state.where.lat;
-    const long=this.state.where.lng;
-    this.props.storeGeolocation(lat,long);
+    const lat = this.state.where.lat;
+    const long = this.state.where.lng;
+    this.props.storeGeolocation(lat, long);
   }
 
   geoFailure = (err) => {
@@ -67,18 +83,33 @@ class Home extends Component {
   }
 
   render() {
-    return (
-      <View style={{ flex: 1, }}>
-        <Forecast lat={this.props.geoLat} long={this.props.geotLong} ></Forecast>
-      </View>
-    );
+    // if (!this.props.isgeoSel) {
+    //   console.log(this.props.isgeoSel)
+    //   return (
+    //     <View style={{ flex: 1, }}>
+    //       <Forecast lat={this.props.lat} long={this.props.long} ></Forecast>
+    //     </View>
+    //   )
+    // }
+    const load = this.props.isgeoSel;
+
+    console.log('STATUS',this.props.geoLat, this.props.long, this.props.isgeoSel);
+      return (
+        <View style={{ flex: 1, }}>
+          {load?
+              <Forecast lat={this.props.geoLat} long={this.props.geotLong} ></Forecast>
+            :
+              <Forecast lat={this.props.selLat} long={this.props.selLong} ></Forecast>}
+          {this.props.get_data(this.props.selLat,this.props.selLong)}
+        </View>
+      );
   }
 }
 
 function mapStateToProps(state) {
   const { weather, city, ready, daily } = state.dataAPI;
-  const { geoLat, geotLong } = state.search;
-  return { weather, city, ready ,daily, geoLat, geotLong }
+  const { geoLat, geotLong, isgeoSel,selLat,selLong } = state.search;
+  return { weather, city, ready, daily, geoLat, geotLong, isgeoSel,selLat,selLong }
 }
 
-export default connect(mapStateToProps, { get_data, get_city, storeGeolocation })(Home)
+export default withNavigation(connect(mapStateToProps, { get_data, get_city, storeGeolocation })(Home))

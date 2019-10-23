@@ -7,7 +7,7 @@ import BackgoundImage from '../Component/common/BackgoundImage';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Climate from '../Component/Climate';
-import { resetSearch, updateOption } from '../Redux/actions';
+import { resetSearch, updateOption, city_status } from '../Redux/actions';
 import Temp from '../Component/Temp';
 import City from '../Component/City';
 import IconEn from 'react-native-vector-icons/Entypo';
@@ -37,10 +37,11 @@ class CityOption extends Component {
         console.log('CITY OPTION ', this.props.locn);
         const locn = Object.values(this.props.locn);
         console.log('OBJECT TO ARRAY', locn);
+        console.log(this.props.geotLong)
         return (
             <View style={{ flex: 1 }}>
                 <BackgoundImage>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('one', { lat:this.props.geoLat, long: this.props.geoLong })}> 
+                    <TouchableOpacity onPress={() => {this.props.navigation.navigate('one', { lat:this.props.geoLat, long: this.props.geoLong }), this.props.city_status(true,lat=this.props.geoLat, long= this.props.geotLong)}}> 
                     <Card width='90%' height='auto'>
                         <View style={{ margin: 10, }}>
                             <CardRow>
@@ -67,7 +68,7 @@ class CityOption extends Component {
                                 //this.props.updateOption( index ,item.lat,item.long,item.place,item.addr,item.placedata);
                                 console.log('Test', item.place, item.addr)
                                 return (
-                                    <TouchableOpacity onPress={() => this.props.navigation.navigate('one', { data: item.placedata, name: item.place })}>
+                                    <TouchableOpacity onPress={() => {this.props.navigation.navigate('one', { lat: item.lat, long:item.long }), this.props.city_status(false, lat=item.lat, long=item.long)}}>
                                         <City data={item}></City>
                                     </TouchableOpacity>
                                     // {/* <Text>{item.placedata.currently.humidity}</Text> */}
@@ -79,7 +80,7 @@ class CityOption extends Component {
                                     // </TouchableOpacity>
                                 );
                             }}
-                            keyExtractor={item => item.place}
+                            keyExtractor={(item, index )=> `${index}${item.place}`}
                         />
                         // <React.Fragment>
                         // <Text>ui</Text>
@@ -119,10 +120,10 @@ class CityOption extends Component {
     }
 }
 function mapStateToProps(state) {
-    const { locn, geoPlace, geoLat, geoLOng } = state.search
-    return { locn, geoPlace, geoLat, geoLOng  }
+    const { locn, geoPlace, geoLat, geotLong } = state.search
+    return { locn, geoPlace, geoLat, geotLong  }
 }
 
 
-export default connect(mapStateToProps, { resetSearch, updateOption })(CityOption)
+export default connect(mapStateToProps, { resetSearch, updateOption, city_status })(CityOption)
 
