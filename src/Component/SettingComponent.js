@@ -14,30 +14,33 @@ class SecondScreen extends Component {
   }
 
   render() {
-    const head =this.props.title;
+    const head = this.props.title;
     const nav = this.props.onPress;
-    console.log(nav,head)
+    console.log(nav, head, this.props.show)
     return (
       <View>
-          <TouchableOpacity onPress={nav}>
-          <Card height={60} width='90%' >
+        <TouchableOpacity onPress={nav}>
+          <Card height='auto' width='90%' >
             <CardRow>
-              <View style={ {flex: 4, paddingTop:17,paddingLeft:20} }>
-                  <Text style={style.whiteHeader}>{head}</Text>
-                </View>
-                <View style={{ flex: 1,paddingTop:17}}>
-                  <IconAnt
-                    style={{ paddingLeft: 16, color: '#ffffff' }}
-                    name="right"
-                    size={25}
-                  />
-                </View>
+              <View style={{ flex: 4, paddingTop: 17, paddingLeft: 20 }}>
+                <Text style={style.whiteHeader}>{head}</Text>
+                
+                <Text style={style.settingDisplay}>{this.props.show}</Text>
+              </View>
+              <View style={{ flex: 1, paddingTop: 17 }}>
+                <IconAnt
+                  style={{ paddingLeft: 16, color: '#ffffff' }}
+                  name="right"
+                  size={25}
+                />
+              </View>
             </CardRow>
           </Card>
-          </TouchableOpacity>
+        </TouchableOpacity>
       </View>
     );
   }
 }
+
 
 export default SecondScreen;

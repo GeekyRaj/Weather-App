@@ -34,7 +34,6 @@ const Styles=StyleSheet.create({
         marginLeft: 15,
         marginRight:5,
         marginTop:10,
-        margin:10,
         backgroundColor:'rgba(10, 0, 0, .4)',
     },
     Center:{

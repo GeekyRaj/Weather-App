@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View,Text } from 'react-native';
+import { View,AppState } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import IconAnt from 'react-native-vector-icons/AntDesign';
 import { connect } from 'react-redux';
@@ -39,11 +39,15 @@ class Home extends Component {
     super(props);
     this.state = {
       where: { lat: null, lng: null },
-      error: null
+      error: null,
+      appState: AppState.currentState,
     };
   }
 
   componentDidMount() {
+
+    AppState.addEventListener('change', this._handleAppStateChange);
+
     //GeoLocation
     let geoOptions = {
       enableHighAccuracy: true,
@@ -65,8 +69,19 @@ class Home extends Component {
   }
 
   componentWillUnmount() {
+    AppState.removeEventListener('change', this._handleAppStateChange);
     this.focusListener.remove();
 }
+
+_handleAppStateChange = (nextAppState) => {
+  if (
+    this.state.appState.match(/inactive|background/) &&
+    nextAppState === 'active'
+  ) {
+    console.log('App has come to the foreground!');
+  }
+  this.setState({appState: nextAppState});
+};
 
   geoSuccess = (position) => {
     this.setState({
@@ -97,9 +112,9 @@ class Home extends Component {
       return (
         <View style={{ flex: 1, }}>
           {load?
-              <Forecast lat={this.props.geoLat} long={this.props.geotLong} ></Forecast>
+              <Forecast lat={this.props.geoLat} long={this.props.geotLong} lang={this.props.selLang} unit={this.props.selUnit} ></Forecast>
             :
-              <Forecast lat={this.props.selLat} long={this.props.selLong} ></Forecast>}
+              <Forecast lat={this.props.selLat} long={this.props.selLong} lang={this.props.selLang} unit={this.props.selUnit}></Forecast>}
           {this.props.get_data(this.props.selLat,this.props.selLong)}
         </View>
       );
@@ -108,8 +123,8 @@ class Home extends Component {
 
 function mapStateToProps(state) {
   const { weather, city, ready, daily } = state.dataAPI;
-  const { geoLat, geotLong, isgeoSel,selLat,selLong } = state.search;
-  return { weather, city, ready, daily, geoLat, geotLong, isgeoSel,selLat,selLong }
+  const { geoLat, geotLong, isgeoSel,selLat,selLong, selLang, selUnit} = state.search;
+  return { weather, city, ready, daily, geoLat, geotLong, isgeoSel,selLat,selLong, selLang, selUnit }
 }
 
 export default withNavigation(connect(mapStateToProps, { get_data, get_city, storeGeolocation })(Home))

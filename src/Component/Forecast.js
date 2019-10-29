@@ -27,9 +27,11 @@ class Forecast extends Component {
             console.log('FORECAST FOCUSSSSS');
             const lat =this.props.lat;
             const long = this.props.long;
+            const lang = this.props.lang;
+            const unit = this.props.unit;
             console.log(lat,long, this.props.place);
             this.props.get_city({lat,long});
-            this.props.get_data({lat,long});
+            this.props.get_data({lat,long,lang,unit});
 
         });
   }
@@ -48,8 +50,10 @@ class Forecast extends Component {
     const city = this.props.city;
     if (!this.props.ready) {
         return (
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', }}>
+          <View style={{ flex: 1,}}>
+            <BackgoundImage>
             <Spinner></Spinner>
+            </BackgoundImage>
           </View>
         )
       }

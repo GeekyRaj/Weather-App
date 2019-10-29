@@ -15,11 +15,20 @@ const style = StyleSheet.create({
     alignItems:'center',
     justifyContent:'center'
   },
+  //PARTITIONS
   partition:{
     height:2,
     width:'100%',
     backgroundColor:'black',
     //margin:5
+  },
+  DropdownPartition:{
+    height:2,
+    width:'100%',
+    backgroundColor:'black',
+    backgroundColor: 'rgba(255,255,255, 0.3)',
+    marginTop: 5, 
+    marginBottom: 2
   },
   button: {
     width:'50%',
@@ -36,6 +45,21 @@ const style = StyleSheet.create({
     color:'white',
     fontWeight:'bold',
     fontSize:20
+  },
+  //setting selected display
+  settingDisplay:{
+    color:'rgba(255,255,255, 0.3)',
+    fontWeight:'bold',
+    fontSize:15,
+    paddingBottom:10
+  },
+  //STyleoption
+  unitoption:{
+    color:'white',
+    fontWeight:'bold',
+    fontSize:17,
+    margin:10,
+    paddingLeft:10
   }
 
 })

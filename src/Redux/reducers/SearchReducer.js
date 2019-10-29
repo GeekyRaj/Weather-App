@@ -6,7 +6,9 @@ import {
     RESET_SEARCH,
     UPDATE_OPTION,
     STORE_GEOLOCATION,
-    CITY_STATUS
+    CITY_STATUS,
+    CHANGE_LANG,
+    CHANGE_UNIT
  } from '../actions/type';
 
 const INITIAL_STATE = {
@@ -14,8 +16,14 @@ const INITIAL_STATE = {
     geotLong : null,
     geoPlace:'',
     isgeoSel: true,
+    //SETTING VARIABLE
     selLat : null,
     selLong : null,
+    selLang:null,
+    selLangDisp: 'English',
+    selUnit:'',
+    selUnitDisp: '',
+
     Places: [],
     IsLoading: null,
     err:'',
@@ -54,6 +62,10 @@ export default (state = INITIAL_STATE, action) =>{
             return { ...state, geoLat:action.payload.lat, geotLong:action.payload.long, geoPlace:action.payload.place };
         case CITY_STATUS:
             return { ...state, isgeoSel: action.payload.status, selLat: action.payload.lat, selLong: action.payload.long }
+        case CHANGE_LANG:
+            return { ...state, selLang: action.payload.lang, selLangDisp: action.payload.langDisp };
+            case CHANGE_UNIT:
+                return { ...state, selUnit: action.payload.unit, selUnitDisp: action.payload.unitDisp }
         default:
             return state;
     }

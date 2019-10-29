@@ -6,7 +6,9 @@ import {
     RESET_SEARCH,
     UPDATE_OPTION,
     STORE_GEOLOCATION,
-    CITY_STATUS
+    CITY_STATUS,
+    CHANGE_LANG,
+    CHANGE_UNIT
 } from './type';
 import axios from 'axios';
 
@@ -82,5 +84,19 @@ export const city_status = (status,lat,long) =>dispatch =>{
     console.log('CITY STATUS',status,lat,long)
     dispatch({
         type:CITY_STATUS, payload: {status,lat,long}
+    })
+}
+
+export const change_lang= ( lang ,langDisp) =>dispatch =>{
+    console.log('LANGUAGE SELECTED ',lang)
+    dispatch({
+        type:CHANGE_LANG, payload: {lang, langDisp}
+    })
+}
+
+export const change_unit= ( unit, unitDisp ) =>dispatch =>{
+    console.log('UNIT SELECTED ',unit)
+    dispatch({
+        type:CHANGE_UNIT, payload: {unit, unitDisp}
     })
 }
