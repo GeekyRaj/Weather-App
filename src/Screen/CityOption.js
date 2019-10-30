@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, FlatList,TouchableOpacity } from 'react-native';
 import { Card, CardRow, Button } from '../Component/common';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import {  } from 'react-native-gesture-handler';
 import style from '../Style/Style';
 import BackgoundImage from '../Component/common/BackgoundImage';
 import { connect } from 'react-redux';
@@ -107,13 +107,31 @@ class CityOption extends Component {
                                 style={{ color: '#000000' }}
                                 onPress={() => this.props.navigation.navigate('AddCity')}
                                 name="plus"
-                                size={45}
+                                size={20}
                             />
                         </TouchableOpacity>
                     </View>
-                    <TouchableOpacity onPress={() => this.props.resetSearch()}>
-                        <Text>RESET</Text>
+                    <View style={{ position: 'absolute', bottom: 0, marginLeft: 15, height: 80, flex: 1 }}>
+                    <TouchableOpacity 
+                        activeOpacity={0.7}
+                        style={{
+                            borderWidth: 1,
+                            borderColor: 'rgba(0,0,0,0.2)',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            width: 50,
+                            height: 50,
+                            backgroundColor: '#fff',
+                            borderRadius: 100,
+                        }}
+                        onPress={() => this.props.resetSearch()}>
+                        <Icon
+                                style={{ color: '#000000' }}
+                                name="delete"
+                                size={25}
+                            />
                     </TouchableOpacity>
+                    </View>
                 </BackgoundImage>
             </View>
         );

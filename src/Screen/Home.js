@@ -45,6 +45,7 @@ class Home extends Component {
   }
 
   componentDidMount() {
+    console.log('HOME DID MOUNT');
 
     AppState.addEventListener('change', this._handleAppStateChange);
 
@@ -91,10 +92,12 @@ _handleAppStateChange = (nextAppState) => {
     const lat = this.state.where.lat;
     const long = this.state.where.lng;
     this.props.storeGeolocation(lat, long);
+    console.log('**********GeoSuccess')
   }
 
   geoFailure = (err) => {
     this.setState({ error: err.message });
+    console.log('**********GeoFailure');
   }
 
   render() {
@@ -108,7 +111,7 @@ _handleAppStateChange = (nextAppState) => {
     // }
     const load = this.props.isgeoSel;
 
-    console.log('STATUS',this.props.geoLat, this.props.long, this.props.isgeoSel);
+    console.log('STATUS',this.props.geoLat, this.props.geotLong, this.props.isgeoSel, this.props.selUnit);
       return (
         <View style={{ flex: 1, }}>
           {load?

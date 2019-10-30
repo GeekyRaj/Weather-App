@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import BackgoundImage from './common/BackgoundImage';
 import { Card, CardRow } from './common';
 import style from '../Style/Style';
 import IconAnt from 'react-native-vector-icons/AntDesign';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 class SecondScreen extends Component {
   constructor(props) {

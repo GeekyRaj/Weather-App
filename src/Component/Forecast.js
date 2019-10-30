@@ -29,7 +29,7 @@ class Forecast extends Component {
             const long = this.props.long;
             const lang = this.props.lang;
             const unit = this.props.unit;
-            console.log(lat,long, this.props.place);
+            console.log(lat,long, this.props.place,lang,unit);
             this.props.get_city({lat,long});
             this.props.get_data({lat,long,lang,unit});
 
@@ -48,7 +48,7 @@ class Forecast extends Component {
     //const temp = (currently.temperature -32)*5/9;
     const dailyData = this.props.daily.data;
     const city = this.props.city;
-    if (!this.props.ready) {
+    if (this.props.ready) {
         return (
           <View style={{ flex: 1,}}>
             <BackgoundImage>
@@ -71,8 +71,8 @@ class Forecast extends Component {
           </View>
   
           <View style={{  alignItems: 'center', justifyContent: 'center', }}>
-            <Text style={{ fontSize: 70,color:'white' }}>{((currently.temperature -32)*5/9).toFixed(2)}{"\u00B0"}</Text>
-            <CardRow>
+            <Text style={{ fontSize: 70,color:'white' }}>{(currently.temperature).toFixed(2)}{"\u00B0"}</Text>
+            {/* <CardRow>
               <TouchableOpacity>
                 <Text style={{ fontSize: 30, fontWeight: 'bold', paddingRight: 15, color: 'white' }}>{"\u2103"}</Text>
               </TouchableOpacity>
@@ -80,7 +80,7 @@ class Forecast extends Component {
               <TouchableOpacity>
                 <Text style={{ fontSize: 30, fontWeight: 'bold', paddingLeft: 15, color: 'gray' }}>{"\u2109"}</Text>
               </TouchableOpacity>
-            </CardRow>
+            </CardRow> */}
           </View>
   
           <ScrollView

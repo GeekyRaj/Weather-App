@@ -7,6 +7,17 @@ import { connect } from 'react-redux';
 import { searchResult, changeLocation } from '../Redux/actions';
 
 class AddCity extends Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+        headerLeft:
+            (<IconAnt
+                style={{ paddingLeft: 16, color: '#ffffff' }}
+                onPress={() => navigation.pop()}
+                name="left"
+                size={25}
+            />),
+    };
+};
   constructor(props) {
     super(props);
     this.state = {
@@ -18,15 +29,15 @@ class AddCity extends Component {
   changeText(text) {
     this.setState({ place: text });
   }
-  onSubmitEditing(){
-    // if (this.state.place === "") {
-    //   this.setState({ msg: 'Enter Place' });
-    // }
-    // else {
-    //   this.props.searchResult(this.state.place);
-    // }
-    console.log(this.state.place)
-  }
+  // onSubmitEditing(){
+  //   // if (this.state.place === "") {
+  //   //   this.setState({ msg: 'Enter Place' });
+  //   // }
+  //   // else {
+  //   //   this.props.searchResult(this.state.place);
+  //   // }
+  //   console.log(this.state.place)
+  // }
 
   searchPlace() {
     if (this.state.place === "") {
@@ -59,7 +70,7 @@ class AddCity extends Component {
                 borderBottomColor: '#7d90a0',
               }}
               onChangeText={value => this.changeText(value)}
-              onSubmitEditing={this.onSubmitEditing}
+              //onSubmitEditing={this.onSubmitEditing}
               onKeyPress={(keyPress) => console.log(keyPress)}
             />
             <IconAnt

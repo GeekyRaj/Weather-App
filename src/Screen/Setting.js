@@ -1,18 +1,30 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text ,TouchableOpacity } from 'react-native';
 import AddSetting from '../Component/SettingComponent';
 import BackgoundImage from '../Component/common/BackgoundImage';
 import { connect } from 'react-redux';
 import { Card } from '../Component/common';
 import style from '../Style/Style';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { change_unit } from '../Redux/actions';
+import IconAnt from 'react-native-vector-icons/AntDesign';
+import { change_unit, change_theme } from '../Redux/actions';
 
 class Setting extends Component {
+    static navigationOptions = ({ navigation }) => {
+        return {
+            headerLeft:
+                (<IconAnt
+                    style={{ paddingLeft: 16, color: '#ffffff' }}
+                    onPress={() => navigation.pop()}
+                    name="left"
+                    size={25}
+                />),
+        };
+    };
     constructor(props) {
         super(props);
         this.state = {
             unitVisible: false,
+            themeVisible: false,
         };
     }
 
@@ -20,8 +32,13 @@ class Setting extends Component {
         this.setState(prevState => ({
           unitVisible: !prevState.unitVisible
         }))
-        console.log('ytruguh');
       }
+
+    toggleTheme(){
+    this.setState(prevState => ({
+        themeVisible: !prevState.themeVisible
+        }))
+    }
 
     render() {
         console.log(this.props.selLangDisp)
@@ -53,11 +70,31 @@ class Setting extends Component {
                         </TouchableOpacity>
                     </Card>
                     :
-                    
                     <Text></Text>
                     }
-                    <AddSetting title='Time Machine' onPress={()=> { this.props.navigation.navigate('TimeMachine')}}/>
-
+                    {/* <AddSetting title='Time Machine' onPress={()=> { this.props.navigation.navigate('TimeMachine')}}/> */}
+                    <AddSetting title='Theme' show={this.props.selTheme} onPress={ ()=> this.toggleTheme()}/>
+                    {this.state.themeVisible?
+                    <Card height='auto' width='90%'>
+                        <TouchableOpacity onPress={ ()=> {this.props.change_theme('Default'), this.toggleTheme()}}>
+                            <Text style={style.unitoption}>Default</Text>
+                        </TouchableOpacity>
+                        <View style={style.DropdownPartition}></View>
+                        <TouchableOpacity onPress={ ()=> {this.props.change_theme('Blue'), this.toggleTheme()}}>
+                            <Text style={style.unitoption}>Blue</Text>
+                        </TouchableOpacity>
+                        <View style={style.DropdownPartition}></View>
+                        <TouchableOpacity onPress={ ()=> {this.props.change_theme('Red'), this.toggleTheme()}}>
+                            <Text style={style.unitoption}>Red</Text>
+                        </TouchableOpacity>
+                        <View style={style.DropdownPartition}></View>
+                        <TouchableOpacity onPress={ ()=> {this.props.change_theme('Yellow'), this.toggleTheme()}}>
+                            <Text style={style.unitoption}>Yellow</Text>
+                        </TouchableOpacity>
+                    </Card>
+                    :
+                    <Text></Text>
+                    }
                 </BackgoundImage>
             </View>
         );
@@ -65,9 +102,9 @@ class Setting extends Component {
 }
 
 function mapStateToProps(state) {
-    const { selLang ,selLangDisp, selUnit, selUnitDisp} = state.search
-    return { selLang, selLangDisp,selUnit, selUnitDisp }
+    const { selLang ,selLangDisp, selUnit, selUnitDisp,selTheme} = state.search
+    return { selLang, selLangDisp,selUnit, selUnitDisp , selTheme}
 }
 
-export default connect(mapStateToProps, { change_unit })(Setting)
+export default connect(mapStateToProps, { change_unit, change_theme })(Setting)
 

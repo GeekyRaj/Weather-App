@@ -8,21 +8,23 @@ import {
     STORE_GEOLOCATION,
     CITY_STATUS,
     CHANGE_LANG,
-    CHANGE_UNIT
+    CHANGE_UNIT,
+    CHANGE_THEME
  } from '../actions/type';
 
 const INITIAL_STATE = {
-    geoLat : null,
-    geotLong : null,
+    geoLat : '19.0760',
+    geotLong : '72.8777',
     geoPlace:'',
     isgeoSel: true,
     //SETTING VARIABLE
-    selLat : null,
-    selLong : null,
-    selLang:null,
+    selLat : '19.0760',
+    selLong : '72.8777',
+    selLang:'en',
     selLangDisp: 'English',
-    selUnit:'',
-    selUnitDisp: '',
+    selUnit:'auto',
+    selUnitDisp: 'Auto',
+    selTheme: 'Default',
 
     Places: [],
     IsLoading: null,
@@ -43,7 +45,7 @@ export default (state = INITIAL_STATE, action) =>{
         case CHANGE_LOCATION:
             return { ...state, locn: [...state.locn, action.payload] };
         case RESET_SEARCH:
-            return { ...INITIAL_STATE };
+            return { ...state , locn:[]};
         case UPDATE_OPTION:
             return { 
                 ...state,
@@ -64,8 +66,10 @@ export default (state = INITIAL_STATE, action) =>{
             return { ...state, isgeoSel: action.payload.status, selLat: action.payload.lat, selLong: action.payload.long }
         case CHANGE_LANG:
             return { ...state, selLang: action.payload.lang, selLangDisp: action.payload.langDisp };
-            case CHANGE_UNIT:
-                return { ...state, selUnit: action.payload.unit, selUnitDisp: action.payload.unitDisp }
+        case CHANGE_UNIT:
+            return { ...state, selUnit: action.payload.unit, selUnitDisp: action.payload.unitDisp }
+        case CHANGE_THEME:
+            return { ...state, selTheme: action.payload }
         default:
             return state;
     }

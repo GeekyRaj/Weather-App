@@ -8,7 +8,8 @@ import {
     STORE_GEOLOCATION,
     CITY_STATUS,
     CHANGE_LANG,
-    CHANGE_UNIT
+    CHANGE_UNIT,
+    CHANGE_THEME
 } from './type';
 import axios from 'axios';
 
@@ -98,5 +99,12 @@ export const change_unit= ( unit, unitDisp ) =>dispatch =>{
     console.log('UNIT SELECTED ',unit)
     dispatch({
         type:CHANGE_UNIT, payload: {unit, unitDisp}
+    })
+}
+
+export const change_theme= (theme) =>dispatch =>{
+    console.log('THEME SELECTED ',theme);
+    dispatch({
+        type:CHANGE_THEME, payload: theme
     })
 }

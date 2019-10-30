@@ -7,7 +7,7 @@ import axios from 'axios';
 export const get_data = ({lat,long, lang, unit}) => {
     console.log('DATA METHOD',lat,long,lang, unit);
     return (dispatch) => {
-        axios.get(`https://api.darksky.net/forecast/adecc2cfa6cc231c8852eadba20fed23/${lat},${long}?lang=${lang}`)
+        axios.get(`https://api.darksky.net/forecast/adecc2cfa6cc231c8852eadba20fed23/${lat},${long}?lang=${lang}&units=${unit}`)
             .then(response => {
                 console.log('DATA TEST', response.data);
                 dispatch({ type: GET_DATA, payload: response.data, daily:response.data.daily })

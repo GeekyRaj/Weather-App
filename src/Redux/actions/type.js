@@ -11,3 +11,4 @@ export const STORE_GEOLOCATION = 'store_geolocation';
 export const CITY_STATUS = 'city_status';
 export const CHANGE_LANG = 'change_lang';
 export const CHANGE_UNIT = 'change_unit';
+export const CHANGE_THEME = 'change_theme';

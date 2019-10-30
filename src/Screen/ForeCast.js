@@ -113,7 +113,7 @@ class Home extends Component {
 
         <View style={{  alignItems: 'center', justifyContent: 'center', }}>
           <Text style={{ fontSize: 70,color:'white' }}>{((currently.temperature -32)*5/9).toFixed(2)}{"\u00B0"}</Text>
-          <CardRow>
+          {/* <CardRow>
             <TouchableOpacity>
               <Text style={{ fontSize: 30, fontWeight: 'bold', paddingRight: 15, color: 'white' }}>{"\u2103"}</Text>
             </TouchableOpacity>
@@ -121,7 +121,7 @@ class Home extends Component {
             <TouchableOpacity>
               <Text style={{ fontSize: 30, fontWeight: 'bold', paddingLeft: 15, color: 'gray' }}>{"\u2109"}</Text>
             </TouchableOpacity>
-          </CardRow>
+          </CardRow> */}
         </View>
 
         <ScrollView

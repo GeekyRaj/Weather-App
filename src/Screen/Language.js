@@ -1,14 +1,25 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text , FlatList, TouchableOpacity} from 'react-native';
 import { Card } from '../Component/common';
 import style from '../Style/Style';
 import BackgoundImage from '../Component/common/BackgoundImage';
-import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import data from '../data/lang';
+import IconAnt from 'react-native-vector-icons/AntDesign';
 import { connect } from 'react-redux';
 import { change_lang} from '../Redux/actions';
 
 class Language extends Component {
+    static navigationOptions = ({ navigation }) => {
+        return {
+            headerLeft:
+                (<IconAnt
+                    style={{ paddingLeft: 16, color: '#ffffff' }}
+                    onPress={() => navigation.pop()}
+                    name="left"
+                    size={25}
+                />),
+        };
+    };
     constructor(props) {
         super(props);
         this.state = {

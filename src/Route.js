@@ -64,7 +64,7 @@ const AppStack = createStackNavigator({
     AddCity:{
         screen: AddCity,
         navigationOptions:{
-            title:'Seach City',
+            title:'Search City',
             headerBackTitle:null,
             headerTitleStyle:{
                 fontSize:20,
