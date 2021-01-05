@@ -9,7 +9,7 @@
     "debug": "open 'rndebugger://set-debugger-loc?host=localhost&port=19001'"
   },
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "intl": "^1.2.5",
     "moment": "^2.24.0",
     "react": "16.8.6",
